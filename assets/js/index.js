@@ -33,7 +33,7 @@ let launchLength = 0; // Placeholder for the number of launches until the data i
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Event listeners for navigation buttons
 toggleBtn.addEventListener("click", () => {
-  console.log("ldldld");
+  
   
   if (sideBar.classList.contains("sidebar-open")) {
     sideBar.classList.remove("sidebar-open")
@@ -45,14 +45,13 @@ toggleBtn.addEventListener("click", () => {
     if (sideBar.classList.contains("sidebar-open")) {
       sideBar.classList.remove("sidebar-open")
     }else{console.log("dddddd");}
-
     todayInSpaceBtn.classList.add("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     todayInSpaceSection.classList.remove("hidden");
     launchesSection.classList.add("hidden");
     planetsSection.classList.add("hidden");
-    closeSidebarOnMobile();
+  
   });
 
   launchesBtn.addEventListener("click", () => {
@@ -65,7 +64,7 @@ toggleBtn.addEventListener("click", () => {
     todayInSpaceSection.classList.add("hidden");
     launchesSection.classList.remove("hidden");
     planetsSection.classList.add("hidden");
-    closeSidebarOnMobile();
+    
   });
 
   planetsBtn.addEventListener("click", () => {
@@ -78,7 +77,7 @@ toggleBtn.addEventListener("click", () => {
     todayInSpaceSection.classList.add("hidden");
     launchesSection.classList.add("hidden");
     planetsSection.classList.remove("hidden");
-    closeSidebarOnMobile();
+  
   });
 
 
