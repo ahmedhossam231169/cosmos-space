@@ -32,9 +32,20 @@ let launchLength = 0; // Placeholder for the number of launches until the data i
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Event listeners for navigation buttons
-if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launchesSection && planetsSection) {
-  todayInSpaceBtn.addEventListener("click", () => {
+toggleBtn.addEventListener("click", () => {
+  console.log("ldldld");
+  
+  if (sideBar.classList.contains("sidebar-open")) {
     sideBar.classList.remove("sidebar-open")
+  } else { sideBar.classList.add("sidebar-open") }
+
+})
+
+  todayInSpaceBtn.addEventListener("click", () => {
+    if (sideBar.classList.contains("sidebar-open")) {
+      sideBar.classList.remove("sidebar-open")
+    }else{console.log("dddddd");}
+
     todayInSpaceBtn.classList.add("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
@@ -45,7 +56,9 @@ if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launc
   });
 
   launchesBtn.addEventListener("click", () => {
-    sideBar.classList.remove("sidebar-open")
+    if (sideBar.classList.contains("sidebar-open")) {
+      sideBar.classList.remove("sidebar-open")
+    }
     todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.add("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
@@ -56,7 +69,9 @@ if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launc
   });
 
   planetsBtn.addEventListener("click", () => {
-    sideBar.classList.remove("sidebar-open")
+    if (sideBar.classList.contains("sidebar-open")) {
+      sideBar.classList.remove("sidebar-open")
+    }
     todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.add("bg-blue-500/10", "text-blue-400");
@@ -65,14 +80,8 @@ if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launc
     planetsSection.classList.remove("hidden");
     closeSidebarOnMobile();
   });
-}
-toggleBtn.addEventListener("click",()=>{
-  
-if (sideBar.classList.contains("sidebar-open")) {
-  sideBar.classList.remove("sidebar-open")
-}else{sideBar.classList.add("sidebar-open")}
 
-})
+
 
 
 
@@ -595,7 +604,7 @@ async function fetchLaunches() {
                   <h1> fail loading please reload page or try a gain later</h1>
                 </div>`
 
-                launchesContent.innerHTML = `<div
+    launchesContent.innerHTML = `<div
               class="bg-slate-800/50 border border-slate-700 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all group cursor-pointer"
             >
               <div
@@ -737,7 +746,7 @@ async function fetchPlanets() {
     planetsData = bodies;
     let planet = bodies[6]
     console.log(bodies)
-    plantsCardInfo.innerHTML =`  <div
+    plantsCardInfo.innerHTML = `  <div
               class="xl:col-span-2 bg-slate-800/50 border border-slate-700 rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8"
             >
               <div
@@ -883,7 +892,7 @@ async function fetchPlanets() {
                     <span
                       id="planet-discoverer"
                       class="font-semibold text-right"
-                      >${planet.discoveredBy ||"Known since antiquity"}</span
+                      >${planet.discoveredBy || "Known since antiquity"}</span
                     >
                   </div>
                   <div
@@ -919,7 +928,7 @@ async function fetchPlanets() {
                   <li class="flex items-start">
                     <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
                     <span class="text-slate-300"
-                      >Mass: ${planet.mass.massValue *10 ** planet.mass.massExponent} kg</span
+                      >Mass: ${planet.mass.massValue * 10 ** planet.mass.massExponent} kg</span
                     >
                   </li>
                   <li class="flex items-start">
@@ -955,7 +964,7 @@ async function fetchPlanets() {
                   >
                     <span class="text-slate-400">Perihelion</span>
                     <span id="planet-perihelion" class="font-semibold"
-                      >${(planet.perihelion/1000000).toFixed(1)+"M"} km</span
+                      >${(planet.perihelion / 1000000).toFixed(1) + "M"} km</span
                     >
                   </div>
                   <div
@@ -963,7 +972,7 @@ async function fetchPlanets() {
                   >
                     <span class="text-slate-400">Aphelion</span>
                     <span id="planet-aphelion" class="font-semibold"
-                      >${(planet.aphelion/1000000).toFixed(1)+"M"} Km</span
+                      >${(planet.aphelion / 1000000).toFixed(1) + "M"} Km</span
                     >
                   </div>
                   <div
@@ -999,7 +1008,7 @@ async function fetchPlanets() {
                   <div class="flex justify-between items-center py-2">
                     <span class="text-slate-400">Escape Velocity</span>
                     <span id="planet-escape" class="font-semibold"
-                      >${planet.escape /1000} km/s</span
+                      >${planet.escape / 1000} km/s</span
                     >
                   </div>
                 </div>
@@ -1192,7 +1201,7 @@ async function fetchPlanets() {
                     <span
                       id="planet-discoverer"
                       class="font-semibold text-right"
-                      >${planet.discoveredBy ||"Known since antiquity"}</span
+                      >${planet.discoveredBy || "Known since antiquity"}</span
                     >
                   </div>
                   <div
@@ -1228,7 +1237,7 @@ async function fetchPlanets() {
                   <li class="flex items-start">
                     <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
                     <span class="text-slate-300"
-                      >Mass: ${planet.mass.massValue *10 ** planet.mass.massExponent} kg</span
+                      >Mass: ${planet.mass.massValue * 10 ** planet.mass.massExponent} kg</span
                     >
                   </li>
                   <li class="flex items-start">
@@ -1264,7 +1273,7 @@ async function fetchPlanets() {
                   >
                     <span class="text-slate-400">Perihelion</span>
                     <span id="planet-perihelion" class="font-semibold"
-                      >${(planet.perihelion/1000000).toFixed(1)+"M"} km</span
+                      >${(planet.perihelion / 1000000).toFixed(1) + "M"} km</span
                     >
                   </div>
                   <div
@@ -1272,7 +1281,7 @@ async function fetchPlanets() {
                   >
                     <span class="text-slate-400">Aphelion</span>
                     <span id="planet-aphelion" class="font-semibold"
-                      >${(planet.aphelion/1000000).toFixed(1)+"M"} Km</span
+                      >${(planet.aphelion / 1000000).toFixed(1) + "M"} Km</span
                     >
                   </div>
                   <div
@@ -1308,7 +1317,7 @@ async function fetchPlanets() {
                   <div class="flex justify-between items-center py-2">
                     <span class="text-slate-400">Escape Velocity</span>
                     <span id="planet-escape" class="font-semibold"
-                      >${planet.escape /1000} km/s</span
+                      >${planet.escape / 1000} km/s</span
                     >
                   </div>
                 </div>
