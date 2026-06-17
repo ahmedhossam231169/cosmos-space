@@ -4,9 +4,8 @@ const todayInSpaceBtn = document.querySelector("[data-section='today-in-space']"
 const launchesBtn = document.querySelector("[data-section='launches']");
 const planetsBtn = document.querySelector("[data-section='planets']");
 const toggleBtn = document.querySelector("#sidebar-toggle");
-const sidebar = document.querySelector("#sidebar");
-const sidebarOverlay = document.querySelector("#sidebar-overlay");
-const navLinks = document.querySelectorAll(".nav-link");
+const sideBar = document.querySelector("#sidebar")
+
 let plantsLength = null;
 let planetsData = [];
 const au = 149597870.7;
@@ -26,29 +25,16 @@ let planetTbody = document.querySelector("#planet-comparison-tbody");
 let plantsCardInfo = document.querySelector(`.plants-info`);
 let launchLength = 0; // Placeholder for the number of launches until the data is fetched
 
-function toggleSidebar() {
-  if (!sidebar || !sidebarOverlay) return;
-
-  sidebar.classList.toggle("sidebar-open");
-  sidebarOverlay.classList.toggle("hidden");
-  document.body.classList.toggle("overflow-hidden");
-}
 
 
-function closeSidebarOnMobile() {
-  if (window.innerWidth >= 1024 || !sidebar || !sidebarOverlay) return;
 
-  if (sidebar.classList.contains("sidebar-open")) {
-    sidebar.classList.remove("sidebar-open");
-    sidebarOverlay.classList.add("hidden");
-    document.body.classList.remove("overflow-hidden");
-  }
-}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Event listeners for navigation buttons
 if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launchesSection && planetsSection) {
   todayInSpaceBtn.addEventListener("click", () => {
+    sideBar.classList.remove("sidebar-open")
     todayInSpaceBtn.classList.add("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
@@ -59,6 +45,7 @@ if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launc
   });
 
   launchesBtn.addEventListener("click", () => {
+    sideBar.classList.remove("sidebar-open")
     todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.add("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
@@ -69,6 +56,7 @@ if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launc
   });
 
   planetsBtn.addEventListener("click", () => {
+    sideBar.classList.remove("sidebar-open")
     todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.add("bg-blue-500/10", "text-blue-400");
@@ -78,42 +66,17 @@ if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launc
     closeSidebarOnMobile();
   });
 }
+toggleBtn.addEventListener("click",()=>{
+  
+if (sideBar.classList.contains("sidebar-open")) {
+  sideBar.classList.remove("sidebar-open")
+}else{sideBar.classList.add("sidebar-open")}
 
-if (toggleBtn) {
-  toggleBtn.addEventListener("click", toggleSidebar);
-}
+})
 
-if (sidebarOverlay) {
-  sidebarOverlay.addEventListener("click", toggleSidebar);
-}
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
 
-    const targetSection = link.dataset.section;
-    const sectionToShow = document.querySelector(`#${targetSection}`);
 
-    if (!sectionToShow) return;
-
-    if (todayInSpaceBtn && launchesBtn && planetsBtn) {
-      todayInSpaceBtn.classList.toggle("bg-blue-500/10", targetSection === "today-in-space");
-      todayInSpaceBtn.classList.toggle("text-blue-400", targetSection === "today-in-space");
-      launchesBtn.classList.toggle("bg-blue-500/10", targetSection === "launches");
-      launchesBtn.classList.toggle("text-blue-400", targetSection === "launches");
-      planetsBtn.classList.toggle("bg-blue-500/10", targetSection === "planets");
-      planetsBtn.classList.toggle("text-blue-400", targetSection === "planets");
-    }
-
-    if (todayInSpaceSection && launchesSection && planetsSection) {
-      todayInSpaceSection.classList.toggle("hidden", targetSection !== "today-in-space");
-      launchesSection.classList.toggle("hidden", targetSection !== "launches");
-      planetsSection.classList.toggle("hidden", targetSection !== "planets");
-    }
-
-    closeSidebarOnMobile();
-  });
-});
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
