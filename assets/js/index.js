@@ -403,7 +403,7 @@ todayInSpaceContent.addEventListener("click", (e) => {
 //fetch and display data for "Launches" section
 async function fetchLaunches() {
   try {
-    const response = await fetch("https://lldev.thespacedevs.com/2.3.0/launches/upcoming/?limit=20", { method: "GET" });
+    const response = await fetch("https://lldev.thespacedevs.com/2.3.0/launches/upcoming/?limit=10", { method: "GET" });
     const launches = await response.json();
     const finalLaunches = launches.results;
     launchLength = finalLaunches.length;
