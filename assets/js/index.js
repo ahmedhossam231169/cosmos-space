@@ -34,6 +34,7 @@ function toggleSidebar() {
   document.body.classList.toggle("overflow-hidden");
 }
 
+
 function closeSidebarOnMobile() {
   if (window.innerWidth >= 1024 || !sidebar || !sidebarOverlay) return;
 
@@ -46,38 +47,45 @@ function closeSidebarOnMobile() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Event listeners for navigation buttons
-todayInSpaceBtn.addEventListener("click", () => {
-  todayInSpaceBtn.classList.add("bg-blue-500/10", "text-blue-400");
-  launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
-  planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
-  todayInSpaceSection.classList.remove("hidden");
-  launchesSection.classList.add("hidden");
-  planetsSection.classList.add("hidden");
-  closeSidebarOnMobile();
-});
+if (todayInSpaceBtn && launchesBtn && planetsBtn && todayInSpaceSection && launchesSection && planetsSection) {
+  todayInSpaceBtn.addEventListener("click", () => {
+    todayInSpaceBtn.classList.add("bg-blue-500/10", "text-blue-400");
+    launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    todayInSpaceSection.classList.remove("hidden");
+    launchesSection.classList.add("hidden");
+    planetsSection.classList.add("hidden");
+    closeSidebarOnMobile();
+  });
 
-launchesBtn.addEventListener("click", () => {
-  todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
-  launchesBtn.classList.add("bg-blue-500/10", "text-blue-400");
-  planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
-  todayInSpaceSection.classList.add("hidden");
-  launchesSection.classList.remove("hidden");
-  planetsSection.classList.add("hidden");
-  closeSidebarOnMobile();
-});
+  launchesBtn.addEventListener("click", () => {
+    todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    launchesBtn.classList.add("bg-blue-500/10", "text-blue-400");
+    planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    todayInSpaceSection.classList.add("hidden");
+    launchesSection.classList.remove("hidden");
+    planetsSection.classList.add("hidden");
+    closeSidebarOnMobile();
+  });
 
-planetsBtn.addEventListener("click", () => {
-  todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
-  launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
-  planetsBtn.classList.add("bg-blue-500/10", "text-blue-400");
-  todayInSpaceSection.classList.add("hidden");
-  launchesSection.classList.add("hidden");
-  planetsSection.classList.remove("hidden");
-  closeSidebarOnMobile();
-});
+  planetsBtn.addEventListener("click", () => {
+    todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    planetsBtn.classList.add("bg-blue-500/10", "text-blue-400");
+    todayInSpaceSection.classList.add("hidden");
+    launchesSection.classList.add("hidden");
+    planetsSection.classList.remove("hidden");
+    closeSidebarOnMobile();
+  });
+}
 
-toggleBtn.addEventListener("click", toggleSidebar);
-sidebarOverlay.addEventListener("click", toggleSidebar);
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", toggleSidebar);
+}
+
+if (sidebarOverlay) {
+  sidebarOverlay.addEventListener("click", toggleSidebar);
+}
 
 navLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
@@ -88,16 +96,20 @@ navLinks.forEach((link) => {
 
     if (!sectionToShow) return;
 
-    todayInSpaceBtn.classList.toggle("bg-blue-500/10", targetSection === "today-in-space");
-    todayInSpaceBtn.classList.toggle("text-blue-400", targetSection === "today-in-space");
-    launchesBtn.classList.toggle("bg-blue-500/10", targetSection === "launches");
-    launchesBtn.classList.toggle("text-blue-400", targetSection === "launches");
-    planetsBtn.classList.toggle("bg-blue-500/10", targetSection === "planets");
-    planetsBtn.classList.toggle("text-blue-400", targetSection === "planets");
+    if (todayInSpaceBtn && launchesBtn && planetsBtn) {
+      todayInSpaceBtn.classList.toggle("bg-blue-500/10", targetSection === "today-in-space");
+      todayInSpaceBtn.classList.toggle("text-blue-400", targetSection === "today-in-space");
+      launchesBtn.classList.toggle("bg-blue-500/10", targetSection === "launches");
+      launchesBtn.classList.toggle("text-blue-400", targetSection === "launches");
+      planetsBtn.classList.toggle("bg-blue-500/10", targetSection === "planets");
+      planetsBtn.classList.toggle("text-blue-400", targetSection === "planets");
+    }
 
-    todayInSpaceSection.classList.toggle("hidden", targetSection !== "today-in-space");
-    launchesSection.classList.toggle("hidden", targetSection !== "launches");
-    planetsSection.classList.toggle("hidden", targetSection !== "planets");
+    if (todayInSpaceSection && launchesSection && planetsSection) {
+      todayInSpaceSection.classList.toggle("hidden", targetSection !== "today-in-space");
+      launchesSection.classList.toggle("hidden", targetSection !== "launches");
+      planetsSection.classList.toggle("hidden", targetSection !== "planets");
+    }
 
     closeSidebarOnMobile();
   });
