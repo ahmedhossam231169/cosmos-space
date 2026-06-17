@@ -4,28 +4,12 @@ const todayInSpaceBtn = document.querySelector("[data-section='today-in-space']"
 const launchesBtn = document.querySelector("[data-section='launches']");
 const planetsBtn = document.querySelector("[data-section='planets']");
 const toggleBtn = document.querySelector("#sidebar-toggle");
-const sideBar = document.querySelector("#sidebar");
-const sidebarOverlay = document.querySelector("#sidebar-overlay");
+const sideBar = document.querySelector("#sidebar")
 
 let plantsLength = null;
 let planetsData = [];
 const au = 149597870.7;
 let dateByCalendar = "";
-
-function setSidebarOpen(isOpen) {
-  if (!sideBar) return;
-
-  sideBar.classList.toggle("sidebar-open", isOpen);
-  if (sidebarOverlay) {
-    sidebarOverlay.classList.toggle("hidden", !isOpen);
-  }
-}
-
-function closeSidebarOnMobile() {
-  if (window.innerWidth < 1024) {
-    setSidebarOpen(false);
-  }
-}
 //select the content containers for each section
 const todayInSpaceContent = document.querySelector("#today-in-space");
 const launchesContent = document.querySelector("#launches-grid");
@@ -35,7 +19,7 @@ const FEATURED = document.querySelector(".FEATURED");
 const todayInSpaceSection = document.querySelector("#today-in-space");
 const launchesSection = document.querySelector("#launches");
 const planetsSection = document.querySelector("#planets");
-const header = document.querySelector("header");
+
 let planetsGrid = document.querySelector("#planets-grid");
 let planetTbody = document.querySelector("#planet-comparison-tbody");
 let plantsCardInfo = document.querySelector(`.plants-info`);
@@ -48,56 +32,47 @@ let launchLength = 0; // Placeholder for the number of launches until the data i
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Event listeners for navigation buttons
-if (toggleBtn && sideBar) {
-  toggleBtn.addEventListener("click", () => {
-    setSidebarOpen(!sideBar.classList.contains("sidebar-open"));
-  });
-}
 
-if (sidebarOverlay) {
-  sidebarOverlay.addEventListener("click", () => {
-    closeSidebarOnMobile();
-  });
-}
 
-if (todayInSpaceBtn) {
   todayInSpaceBtn.addEventListener("click", () => {
-    closeSidebarOnMobile();
+    if (sideBar.classList.contains("sidebar-open")) {
+      sideBar.classList.remove("sidebar-open")
+    }
+
     todayInSpaceBtn.classList.add("bg-blue-500/10", "text-blue-400");
-    launchesBtn?.classList.remove("bg-blue-500/10", "text-blue-400");
-    planetsBtn?.classList.remove("bg-blue-500/10", "text-blue-400");
-    todayInSpaceSection?.classList.remove("hidden");
-    launchesSection?.classList.add("hidden");
-    planetsSection?.classList.add("hidden");
+    launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    todayInSpaceSection.classList.remove("hidden");
+    launchesSection.classList.add("hidden");
+    planetsSection.classList.add("hidden");
+  
   });
-}
 
-if (launchesBtn) {
   launchesBtn.addEventListener("click", () => {
-    closeSidebarOnMobile();
-    todayInSpaceBtn?.classList.remove("bg-blue-500/10", "text-blue-400");
+    if (sideBar.classList.contains("sidebar-open")) {
+      sideBar.classList.remove("sidebar-open")
+    }
+    todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     launchesBtn.classList.add("bg-blue-500/10", "text-blue-400");
-    planetsBtn?.classList.remove("bg-blue-500/10", "text-blue-400");
-    todayInSpaceSection?.classList.add("hidden");
-    launchesSection?.classList.remove("hidden");
-    planetsSection?.classList.add("hidden");
+    planetsBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    todayInSpaceSection.classList.add("hidden");
+    launchesSection.classList.remove("hidden");
+    planetsSection.classList.add("hidden");
+    
   });
-}
 
-if (planetsBtn) {
   planetsBtn.addEventListener("click", () => {
-    closeSidebarOnMobile();
-    todayInSpaceBtn?.classList.remove("bg-blue-500/10", "text-blue-400");
-    launchesBtn?.classList.remove("bg-blue-500/10", "text-blue-400");
+    if (sideBar.classList.contains("sidebar-open")) {
+      sideBar.classList.remove("sidebar-open")
+    }
+    todayInSpaceBtn.classList.remove("bg-blue-500/10", "text-blue-400");
+    launchesBtn.classList.remove("bg-blue-500/10", "text-blue-400");
     planetsBtn.classList.add("bg-blue-500/10", "text-blue-400");
-    todayInSpaceSection?.classList.add("hidden");
-    launchesSection?.classList.add("hidden");
-    planetsSection?.classList.remove("hidden");
+    todayInSpaceSection.classList.add("hidden");
+    launchesSection.classList.add("hidden");
+    planetsSection.classList.remove("hidden");
+  
   });
-}
-
-
-
 
 
 
@@ -414,7 +389,7 @@ async function fetchLaunches() {
       day: "numeric",
       year: "numeric",
     });
-    FEATURED.innerHTML = `   <div class="flex flex-col justify-between">
+    FEATURED.innerHTML = `<div class="flex flex-col justify-between">
                   <div>
                     <div class="flex items-center gap-3 mb-4">
                       <span
@@ -686,67 +661,7 @@ async function fetchLaunches() {
             </div>`
 
   }
-  header.innerHTML = `  <div class="px-4 lg:px-8 py-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-3 lg:space-x-6">
-              <button
-                id="sidebar-toggle"
-                class="lg:hidden w-10 h-10 flex items-center justify-center bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
-              >
-                <i class="fas fa-bars text-white"></i>
-              </button>
-              <div>
-                <h2
-                  class="text-lg lg:text-xl font-space font-bold bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-                >
-                  Space Explorer Dashboard
-                </h2>
-                <p class="text-xs text-slate-400 mt-0.5 hidden sm:block">
-                  Real-time space data from NASA & SpaceDevs
-                </p>
-              </div>
-            </div>
-            <div class="flex items-center space-x-2 md:space-x-4">
-              <div
-                class="flex items-center space-x-2 md:space-x-3 px-2 md:px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-xl"
-              >
-                <div class="flex items-center space-x-1 md:space-x-2">
-                  <div
-                    class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
-                  ></div>
-                  <span class="text-xs text-slate-400 hidden sm:inline"
-                    >Live Data</span
-                  >
-                </div>
-                <div class="w-px h-4 bg-slate-700 hidden sm:block"></div>
-                <div class="flex items-center space-x-1 md:space-x-2">
-                  <i class="fas fa-globe text-blue-400 text-sm"></i>
-                  <span
-                    class="text-xs text-slate-300 font-semibold hidden sm:inline"
-                    >8 </span
-                  >
-                  <span class="text-xs text-slate-300 font-semibold sm:hidden"
-                    >8</span
-                  >
-                </div>
-                <div class="w-px h-4 bg-slate-700 hidden sm:block"></div>
-                <div class="flex items-center space-x-1 md:space-x-2">
-                  <i class="fas fa-rocket text-purple-400 text-sm"></i>
-                  <span
-                    class="text-xs text-slate-300 font-semibold hidden sm:inline"
-                    id="launches-count"
-                    >${launchLength} Launches</span
-                  >
-                  <span
-                    class="text-xs text-slate-300 font-semibold sm:hidden"
-                    id="launches-count-mobile"
-                    >${launchLength}</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>`
+  
 }
 fetchLaunches()
 //////////////////////////////////////////////////////////////////////
@@ -1418,3 +1333,11 @@ async function fetchPlanets() {
 }
 fetchPlanets();
 //////////////////////////////////////////////////////////////////////
+toggleBtn.addEventListener("click", () => {
+  console.log("dddddd");
+  
+  if (sideBar.classList.contains("sidebar-open")) {
+    sideBar.classList.remove("sidebar-open")
+  } else { sideBar.classList.add("sidebar-open") }
+
+})
