@@ -3,9 +3,13 @@
 const todayInSpaceBtn = document.querySelector("[data-section='today-in-space']");
 const launchesBtn = document.querySelector("[data-section='launches']");
 const planetsBtn = document.querySelector("[data-section='planets']");
-let plantsLength = null
+const toggleBtn = document.querySelector("#sidebar-toggle");
+const sidebar = document.querySelector("#sidebar");
+const sidebarOverlay = document.querySelector("#sidebar-overlay");
+const navLinks = document.querySelectorAll(".nav-link");
+let plantsLength = null;
 let planetsData = [];
-const au = 149597870.7
+const au = 149597870.7;
 let dateByCalendar = "";
 //select the content containers for each section
 const todayInSpaceContent = document.querySelector("#today-in-space");
@@ -18,9 +22,27 @@ const launchesSection = document.querySelector("#launches");
 const planetsSection = document.querySelector("#planets");
 const header = document.querySelector("header");
 let planetsGrid = document.querySelector("#planets-grid");
-let planetTbody = document.querySelector("#planet-comparison-tbody")
-let plantsCardInfo = document.querySelector(`.plants-info`)
+let planetTbody = document.querySelector("#planet-comparison-tbody");
+let plantsCardInfo = document.querySelector(`.plants-info`);
 let launchLength = 0; // Placeholder for the number of launches until the data is fetched
+
+function toggleSidebar() {
+  if (!sidebar || !sidebarOverlay) return;
+
+  sidebar.classList.toggle("sidebar-open");
+  sidebarOverlay.classList.toggle("hidden");
+  document.body.classList.toggle("overflow-hidden");
+}
+
+function closeSidebarOnMobile() {
+  if (window.innerWidth >= 1024 || !sidebar || !sidebarOverlay) return;
+
+  if (sidebar.classList.contains("sidebar-open")) {
+    sidebar.classList.remove("sidebar-open");
+    sidebarOverlay.classList.add("hidden");
+    document.body.classList.remove("overflow-hidden");
+  }
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Event listeners for navigation buttons
@@ -31,6 +53,7 @@ todayInSpaceBtn.addEventListener("click", () => {
   todayInSpaceSection.classList.remove("hidden");
   launchesSection.classList.add("hidden");
   planetsSection.classList.add("hidden");
+  closeSidebarOnMobile();
 });
 
 launchesBtn.addEventListener("click", () => {
@@ -40,6 +63,7 @@ launchesBtn.addEventListener("click", () => {
   todayInSpaceSection.classList.add("hidden");
   launchesSection.classList.remove("hidden");
   planetsSection.classList.add("hidden");
+  closeSidebarOnMobile();
 });
 
 planetsBtn.addEventListener("click", () => {
@@ -49,6 +73,34 @@ planetsBtn.addEventListener("click", () => {
   todayInSpaceSection.classList.add("hidden");
   launchesSection.classList.add("hidden");
   planetsSection.classList.remove("hidden");
+  closeSidebarOnMobile();
+});
+
+toggleBtn.addEventListener("click", toggleSidebar);
+sidebarOverlay.addEventListener("click", toggleSidebar);
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const targetSection = link.dataset.section;
+    const sectionToShow = document.querySelector(`#${targetSection}`);
+
+    if (!sectionToShow) return;
+
+    todayInSpaceBtn.classList.toggle("bg-blue-500/10", targetSection === "today-in-space");
+    todayInSpaceBtn.classList.toggle("text-blue-400", targetSection === "today-in-space");
+    launchesBtn.classList.toggle("bg-blue-500/10", targetSection === "launches");
+    launchesBtn.classList.toggle("text-blue-400", targetSection === "launches");
+    planetsBtn.classList.toggle("bg-blue-500/10", targetSection === "planets");
+    planetsBtn.classList.toggle("text-blue-400", targetSection === "planets");
+
+    todayInSpaceSection.classList.toggle("hidden", targetSection !== "today-in-space");
+    launchesSection.classList.toggle("hidden", targetSection !== "launches");
+    planetsSection.classList.toggle("hidden", targetSection !== "planets");
+
+    closeSidebarOnMobile();
+  });
 });
 ////////////////////////////////////////////////////////////////////////////////////////////
 
